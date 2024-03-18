@@ -40,17 +40,18 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="FileHandling.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
-      <Content Include="FileSet\Net_1_2048.txt" />
-      <Content Include="FileSet\Net_1_256.txt" />
-      <Content Include="FileSet\Net_2_2048.txt" />
-      <Content Include="FileSet\Net_2_256.txt" />
-      <Content Include="FileSet\Net_3_2048.txt" />
-      <Content Include="FileSet\Net_3_256.txt" />
+      <Content Include="NetworkFiles\Net_1_2048.txt" />
+      <Content Include="NetworkFiles\Net_1_256.txt" />
+      <Content Include="NetworkFiles\Net_2_2048.txt" />
+      <Content Include="NetworkFiles\Net_2_256.txt" />
+      <Content Include="NetworkFiles\Net_3_2048.txt" />
+      <Content Include="NetworkFiles\Net_3_256.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
