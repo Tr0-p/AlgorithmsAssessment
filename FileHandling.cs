@@ -5,9 +5,9 @@ using System.IO;
 namespace AlgorithmsAssessment
 {
     public class FileHandling
-    {
+    { 
         private string _basePath =
-            @"C:\Users\tommi\RiderProjects\AlgorithmsAssessment\AlgorithmsAssessment\NetworkFiles";
+            @"../../NetworkFiles";
 
         private IOHandler _io = new IOHandler();
         
@@ -27,11 +27,9 @@ namespace AlgorithmsAssessment
 
                 return allNumbers;
             }
-            else
-            {
-                _io.WriteColourTextLine($"File {path} cannot be found! Maybe check the directory?", ConsoleColor.Red);
-                return new List<int>();
-            }
+
+            _io.WriteColourTextLine($"File {path} cannot be found! Maybe check the directory?", ConsoleColor.Red); 
+            return new List<int>();
         }
     }
 }
