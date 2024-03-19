@@ -8,6 +8,8 @@ namespace AlgorithmsAssessment
     {
         private string _basePath =
             @"C:\Users\tommi\RiderProjects\AlgorithmsAssessment\AlgorithmsAssessment\NetworkFiles";
+
+        private IOHandler _io = new IOHandler();
         
         public List<int> ReadFileIntoArray(string fileName)
         {
@@ -27,10 +29,7 @@ namespace AlgorithmsAssessment
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"File {path} cannot be found! Maybe check the directory?");
-                Console.ResetColor();
-
+                _io.WriteColourTextLine($"File {path} cannot be found! Maybe check the directory?", ConsoleColor.Red);
                 return new List<int>();
             }
         }
