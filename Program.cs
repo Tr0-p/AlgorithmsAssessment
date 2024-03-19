@@ -61,6 +61,24 @@ namespace AlgorithmsAssessment
                         List<int> bubbleSortedList = sort.BubbleSort(arrayToHandle);
                         AscendingAndDescendingOutput(bubbleSortedList, io);
                         break;
+                    
+                    case 1:
+                        io.WriteColourTextLine("\nInsertion Sort", ConsoleColor.Blue);
+                        List<int> insertionSortedList = sort.InsertionSort(arrayToHandle);
+                        AscendingAndDescendingOutput(insertionSortedList, io);
+                        break;
+                    
+                    case 2:
+                        io.WriteColourTextLine("\nMerge Sort", ConsoleColor.Blue);
+                        List<int> mergeSortedList = sort.MergeSort(arrayToHandle);
+                        AscendingAndDescendingOutput(mergeSortedList, io);
+                        break;
+                    
+                    case 3:
+                        io.WriteColourTextLine("\nQuick Sort", ConsoleColor.Blue);
+                        List<int> quickSortedList = sort.QuickSort(arrayToHandle, 0, arrayToHandle.Count - 1);
+                        AscendingAndDescendingOutput(quickSortedList, io);
+                        break;
                 }
             }
         }
