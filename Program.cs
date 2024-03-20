@@ -42,42 +42,114 @@ namespace AlgorithmsAssessment
             FileHandling fileHandler = new FileHandling();
             IOHandler io = new IOHandler();
             Sorting sort = new Sorting();
+            Searching search = new Searching();
             
             string[] arrayOptions = {"Net_1_256", "Net_2_256", "Net_3_256"};
             String[] sortMenu = { "Bubble Sort", "Insertion Sort", "Merge Sort", "Quick Sort" };
+            String[] searchMenu = { "Linear Search", "Binary Search" };
             List<int>[] arrays = { fileHandler.ReadFileIntoArray("Net_1_256.txt"), fileHandler.ReadFileIntoArray("Net_2_256.txt"), fileHandler.ReadFileIntoArray("Net_3_256.txt") };
             
             while (true)
             {
                 int arrayChosen = MenuHandleAndVerify(arrayOptions, io);
                 List<int> arrayToHandle = arrays[arrayChosen];
-            
+                List<int> sortedList = arrayToHandle;
+                
                 int sortOption = MenuHandleAndVerify(sortMenu, io);
-
+                
                 switch (sortOption)
                 {
                     case 0:
                         io.WriteColourTextLine("\nBubble Sort", ConsoleColor.Blue);
-                        List<int> bubbleSortedList = sort.BubbleSort(arrayToHandle);
-                        AscendingAndDescendingOutput(bubbleSortedList, io);
+                        sortedList = sort.BubbleSort(arrayToHandle);
+                        AscendingAndDescendingOutput(sortedList, io);
                         break;
                     
                     case 1:
                         io.WriteColourTextLine("\nInsertion Sort", ConsoleColor.Blue);
-                        List<int> insertionSortedList = sort.InsertionSort(arrayToHandle);
-                        AscendingAndDescendingOutput(insertionSortedList, io);
+                        sortedList = sort.InsertionSort(arrayToHandle);
+                        AscendingAndDescendingOutput(sortedList, io);
                         break;
                     
                     case 2:
                         io.WriteColourTextLine("\nMerge Sort", ConsoleColor.Blue);
-                        List<int> mergeSortedList = sort.MergeSort(arrayToHandle);
-                        AscendingAndDescendingOutput(mergeSortedList, io);
+                        sortedList = sort.MergeSort(arrayToHandle);
+                        AscendingAndDescendingOutput(sortedList, io);
                         break;
                     
                     case 3:
                         io.WriteColourTextLine("\nQuick Sort", ConsoleColor.Blue);
-                        List<int> quickSortedList = sort.QuickSort(arrayToHandle, 0, arrayToHandle.Count - 1);
-                        AscendingAndDescendingOutput(quickSortedList, io);
+                        sortedList = sort.QuickSort(arrayToHandle, 0, arrayToHandle.Count - 1);
+                        AscendingAndDescendingOutput(sortedList, io);
+                        break;
+                }
+                
+                io.WriteColourTextLine("Press any key to continue...", ConsoleColor.Cyan);
+                Console.ReadKey();
+                io.WriteColourTextLine("Search for a value...", ConsoleColor.DarkCyan);
+                int searchOption = MenuHandleAndVerify(searchMenu, io);
+                int searchValue = 0;
+                
+                while (true)
+                {
+                    try
+                    {
+                        io.WriteColourText("Value to search for: ", ConsoleColor.Green);
+                        searchValue = Int32.Parse(Console.ReadLine());
+                        break;
+                    }
+                    catch (FormatException e)
+                    {
+                        io.WriteColourTextLine("\nError: Invalid input given.", ConsoleColor.Red);
+                    }
+                }
+                
+                switch (searchOption)
+                {
+                    case 0:
+                        io.WriteColourTextLine("\nLinear Search Algorithm", ConsoleColor.DarkCyan);
+                        (bool, List<int>) linearResults = search.LinearSearch(sortedList, searchValue, true);
+
+                        if (linearResults.Item1)
+                        {
+                            io.WriteColourTextLine("Item Found!\nLocation(s): ", ConsoleColor.Green);
+
+                            foreach (int index in linearResults.Item2)
+                            {
+                                io.WriteColourTextLine(index.ToString(), ConsoleColor.Green);
+                                
+                            }
+                        }
+                        else
+                        {
+                            io.WriteColourTextLine(
+                                $"Item Not Found!\nNearest Index: {linearResults.Item2[0]}\nNearest Value: {sortedList[linearResults.Item2[0]]}",
+                                ConsoleColor.Red);
+                        }
+
+                        break;
+                    
+                    case 1:
+                        io.WriteColourTextLine("\nBinary Search Algorithm", ConsoleColor.DarkCyan);
+                        (bool, List<int>) binaryResults = search.BinarySearch(sortedList, searchValue);
+
+                        if (binaryResults.Item1)
+                        {
+                            io.WriteColourTextLine("Item Found!\nLocation(s): ", ConsoleColor.Green);
+
+                            foreach (int index in binaryResults.Item2)
+                            {
+                                io.WriteColourTextLine(index.ToString(), ConsoleColor.Green);
+                                
+                            }
+                        }
+                        else
+                        {
+                            io.WriteColourTextLine(
+                                $"Item Not Found!\nNearest Index: {binaryResults.Item2[0]}\nNearest Value: {sortedList[binaryResults.Item2[0]]}",
+                                ConsoleColor.Red);
+                        }
+
                         break;
                 }
             }
