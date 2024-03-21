@@ -5,30 +5,33 @@ using System.IO;
 namespace AlgorithmsAssessment
 {
     public class FileHandling
-    { 
-        private string _basePath =
-            @"../../NetworkFiles";
+    {
+        private readonly string _basePath = @"../../NetworkFiles";  // Store the base pathway of the Net Files.
 
-        private IOHandler _io = new IOHandler();
-        
+        private readonly IOHandler _io = new IOHandler();  // Initialize the IO Handler.
+
+        /// <summary>
+        /// Read the file into a List.
+        /// </summary>
+        /// <param name="fileName">The name of the file to read.</param>
+        /// <returns>A list of all </returns>
         public List<int> ReadFileIntoArray(string fileName)
         {
-            string path = Path.Combine(_basePath, fileName);
-            
-            if (File.Exists(path))
+            var path = Path.Combine(_basePath, fileName);  // Combine the base path with the fileName.
+
+            if (File.Exists(path))  // Ensure the pathway exists.
             {
-                string[] fileLines = File.ReadAllLines(path);
-                List<int> allNumbers = new List<int>();
+                var fileLines = File.ReadAllLines(path);
+                var allNumbers = new List<int>();  // Create an array to store all the numbers.
                 
-                foreach (string number in fileLines)
-                {
-                    allNumbers.Add(int.Parse(number));
-                }
+                // Loop through each value and convert it to a number.
+                foreach (var number in fileLines) allNumbers.Add(int.Parse(number));
 
                 return allNumbers;
             }
-
-            _io.WriteColourTextLine($"File {path} cannot be found! Maybe check the directory?", ConsoleColor.Red); 
+            
+            // If the pathway cannot be found, tell the user.
+            _io.WriteColourTextLine($"File {path} cannot be found! Maybe check the directory?", ConsoleColor.Red);
             return new List<int>();
         }
     }
