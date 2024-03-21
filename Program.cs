@@ -118,7 +118,7 @@ namespace AlgorithmsAssessment
                     arrayToHandle = arrays[arrayChosen];
                 }
                 
-                List<int> sortedList = arrayToHandle;
+                (List<int>, int) sortedList = (arrayToHandle, 0);
                 
                 int sortOption = MenuHandleAndVerify(sortMenu, io);
                 
@@ -127,25 +127,29 @@ namespace AlgorithmsAssessment
                     case 0:
                         io.WriteColourTextLine("\nBubble Sort", ConsoleColor.Blue);
                         sortedList = sort.BubbleSort(arrayToHandle);
-                        AscendingAndDescendingOutput(sortedList, io);
+                        AscendingAndDescendingOutput(sortedList.Item1, io);
+                        io.WriteColourTextLine($"Steps: {sortedList.Item2}", ConsoleColor.Green);
                         break;
                     
                     case 1:
                         io.WriteColourTextLine("\nInsertion Sort", ConsoleColor.Blue);
                         sortedList = sort.InsertionSort(arrayToHandle);
-                        AscendingAndDescendingOutput(sortedList, io);
+                        AscendingAndDescendingOutput(sortedList.Item1, io);
+                        io.WriteColourTextLine($"Steps: {sortedList.Item2}", ConsoleColor.Green);
                         break;
                     
                     case 2:
                         io.WriteColourTextLine("\nMerge Sort", ConsoleColor.Blue);
                         sortedList = sort.MergeSort(arrayToHandle);
-                        AscendingAndDescendingOutput(sortedList, io);
+                        AscendingAndDescendingOutput(sortedList.Item1, io);
+                        io.WriteColourTextLine($"Steps: {sortedList.Item2}", ConsoleColor.Green);
                         break;
                     
                     case 3:
                         io.WriteColourTextLine("\nQuick Sort", ConsoleColor.Blue);
                         sortedList = sort.QuickSort(arrayToHandle, 0, arrayToHandle.Count - 1);
-                        AscendingAndDescendingOutput(sortedList, io);
+                        AscendingAndDescendingOutput(sortedList.Item1, io);
+                        io.WriteColourTextLine($"Steps: {sortedList.Item2}", ConsoleColor.Green);
                         break;
                 }
                 
@@ -173,7 +177,7 @@ namespace AlgorithmsAssessment
                 {
                     case 0:
                         io.WriteColourTextLine("\nLinear Search Algorithm", ConsoleColor.DarkCyan);
-                        (bool, List<int>) linearResults = search.LinearSearch(sortedList, searchValue, true);
+                        (bool, List<int>, int) linearResults = search.LinearSearch(sortedList.Item1, searchValue, true);
 
                         if (linearResults.Item1)
                         {
@@ -188,15 +192,17 @@ namespace AlgorithmsAssessment
                         else
                         {
                             io.WriteColourTextLine(
-                                $"Item Not Found!\nNearest Index: {linearResults.Item2[0]}\nNearest Value: {sortedList[linearResults.Item2[0]]}",
+                                $"Item Not Found!\nNearest Index: {linearResults.Item2[0]}\nNearest Value: {sortedList.Item1[linearResults.Item2[0]]}",
                                 ConsoleColor.Red);
                         }
+                        
+                        io.WriteColourTextLine($"Steps: {linearResults.Item3}", ConsoleColor.Green);
 
                         break;
                     
                     case 1:
                         io.WriteColourTextLine("\nBinary Search Algorithm", ConsoleColor.DarkCyan);
-                        (bool, List<int>) binaryResults = search.BinarySearch(sortedList, searchValue);
+                        (bool, List<int>, int) binaryResults = search.BinarySearch(sortedList.Item1, searchValue);
 
                         if (binaryResults.Item1)
                         {
@@ -211,9 +217,11 @@ namespace AlgorithmsAssessment
                         else
                         {
                             io.WriteColourTextLine(
-                                $"Item Not Found!\nNearest Index: {binaryResults.Item2[0]}\nNearest Value: {sortedList[binaryResults.Item2[0]]}",
+                                $"Item Not Found!\nNearest Index: {binaryResults.Item2[0]}\nNearest Value: {sortedList.Item1[binaryResults.Item2[0]]}",
                                 ConsoleColor.Red);
                         }
+                        
+                        io.WriteColourTextLine($"Steps: {binaryResults.Item3}", ConsoleColor.Green);
 
                         break;
                 }

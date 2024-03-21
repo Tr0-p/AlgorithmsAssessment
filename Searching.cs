@@ -8,7 +8,7 @@ namespace AlgorithmsAssessment
     {
         // Binary Search
 
-        public (bool, List<int>) BinarySearch(List<int> array, int numberToSearchFor)
+        public (bool, List<int>, int) BinarySearch(List<int> array, int numberToSearchFor)
         {
             int minimumNumber = 0;
             int maximumNumber = array.Count - 1;
@@ -18,6 +18,8 @@ namespace AlgorithmsAssessment
 
             int closestAbsolute = array.Max();
             int closestIndex = 0;
+
+            int steps = 0;
             
             while (minimumNumber <= maximumNumber)
             {
@@ -60,6 +62,8 @@ namespace AlgorithmsAssessment
                 {
                     minimumNumber = middle + 1;
                 }
+
+                steps += 1;
             }
 
             if (!valueFound)
@@ -67,17 +71,19 @@ namespace AlgorithmsAssessment
                 indexes.Add(closestIndex);
             }
             
-            return (valueFound, indexes);
+            return (valueFound, indexes, steps);
 
         }
         
         // Linear Search
-        public (bool, List<int>) LinearSearch(List<int> array, int numberToSearchFor, bool sorted)
+        public (bool, List<int>, int) LinearSearch(List<int> array, int numberToSearchFor, bool sorted)
         {
             int closestAbsolute = array.Max();
             int closestIndex = 0;
             List<int> indexes = new List<int>();
             bool found = false;
+
+            int steps = 0;
             
             for(int i = 0; i < array.Count - 1; i++)
             {
@@ -96,6 +102,8 @@ namespace AlgorithmsAssessment
                     found = true;
                 }
 
+                steps += 1;
+                
                 if (sorted && number > numberToSearchFor)
                 {
                     break;
@@ -107,7 +115,7 @@ namespace AlgorithmsAssessment
                 indexes.Add(closestIndex);
             }
 
-            return (found, indexes);
+            return (found, indexes, steps);
         }
     }
 }
